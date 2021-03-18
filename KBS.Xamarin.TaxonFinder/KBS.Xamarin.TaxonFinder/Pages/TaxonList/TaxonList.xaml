@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Art auswählen"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="KBS.App.TaxonFinder.Views.TaxonList"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 xmlns:dpd="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 x:Name="TaxonListView">
+
+	<ContentPage.BindingContext>
+		<mvvm:TaxonListViewModel></mvvm:TaxonListViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Content>
+		<StackLayout Spacing="0" CompressedLayout.IsHeadless="True">
+			<SearchBar Text="{Binding SearchText, Mode=TwoWay}" IsVisible="{Binding EnableSearchbar}" Placeholder="{Binding PlaceholderText}"></SearchBar>
+			<ListView CachingStrategy="RecycleElement" x:Name="TaxonListListView" ItemTapped="ListView_ItemTapped" ItemsSource="{Binding SelectedTaxonList}" HasUnevenRows="False" IsGroupingEnabled="True">
+				<ListView.GroupHeaderTemplate>
+					<DataTemplate>
+						<ViewCell CompressedLayout.IsHeadless="True">
+                            <Grid Margin="5,1,10,3" CompressedLayout.IsHeadless="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ListView_HeaderTapped" CommandParameter="{Binding OrderName}"></TapGestureRecognizer>
+                                </Grid.GestureRecognizers>
+                                    <Label HorizontalOptions="Start" VerticalOptions="CenterAndExpand" Text="{Binding OrderName}" FontSize="Small"></Label>
+                                    <Label Grid.Column="1" FontSize="Small" HeightRequest="33" Padding="1" Margin="0" WidthRequest="100" HorizontalOptions="CenterAndExpand" Text="{Binding ExpandedIcon}" TextColor="{x:StaticResource senck_brown}"></Label>
+                            </Grid>
+                        </ViewCell>
+					</DataTemplate>
+				</ListView.GroupHeaderTemplate>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+                        <ViewCell CompressedLayout.IsHeadless="True">
+                            <Grid Margin="5,1,0,2" CompressedLayout.IsHeadless="True">
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"></ColumnDefinition>
+                                        <ColumnDefinition Width="275"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <!--Image Grid.Column="0" Source="{Binding ListImage}"></-->
+                                    <Label Grid.Column="1" Text="{Binding LocalName}" VerticalOptions="Center" FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="StartAndExpand" Margin="0"></Label>
+                                    <Label Grid.Column="2" Text="{Binding AllowTaxonInfoViewIcon}" VerticalOptions="Center" ></Label>
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+            <StackLayout WidthRequest="100">
+                <Grid WidthRequest="100" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button BackgroundColor="{x:StaticResource senck_green}" TextColor="White" BorderWidth="1" Grid.Column="0" Grid.Row="0" FontSize="Small" Text="Alle einklappen" VerticalOptions="FillAndExpand" Clicked="Switchgroupingbutton_collapse_clicked" x:Name="SwitchGroupingButtonCollapse"></Button>
+                    <Button Grid.Column="1" Grid.Row="0" BackgroundColor="{x:StaticResource senck_brown}" TextColor="White" Text="Alle ausklappen" FontSize="Small" VerticalOptions="FillAndExpand" Clicked="Switchgroupingbutton_expand_clicked" x:Name="SwitchGroupingButtonExpand"></Button>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

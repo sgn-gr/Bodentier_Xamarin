@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Feedback"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 x:Class="KBS.App.TaxonFinder.Views.Feedback">
+
+	<ContentPage.BindingContext>
+		<mvvm:FeedbackViewModel></mvvm:FeedbackViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.Content>
+		<ScrollView Padding="10">
+			<StackLayout>
+				<Label Text="Wenn Du uns Hinweise zu dieser App zukommen lassen möchtest, kannst Du uns hier eine Nachricht senden.&#x0a;" TextColor="Black"></Label>
+				<Label Text="E-Mail-Adresse (optional)"></Label>
+				<Entry Text="{Binding MailAdress}" x:Name="MailAdressEntry" IsEnabled="{Binding IsSent, Converter={conv:BoolToInvertedBoolConverter}}" Keyboard="Email"></Entry>
+				<Label Text="Nachricht"></Label>
+				<Editor Text="{Binding MailText}" VerticalOptions="StartAndExpand" x:Name="MailTextEditor" IsEnabled="{Binding IsSent, Converter={conv:BoolToInvertedBoolConverter}}" AutoSize="TextChanges"></Editor>
+				<ActivityIndicator VerticalOptions="End" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+				<Label Text="{Binding Result}" VerticalOptions="End" VerticalTextAlignment="End" HorizontalTextAlignment="Center"  HorizontalOptions="Center" FontSize="Medium" IsVisible="{Binding IsClicked}"></Label>
+				<Button Text="Absenden" VerticalOptions="End" Command="{Binding SendFeedbackCommand}" Clicked="SendButton_Clicked" IsVisible="{Binding IsSent, Converter={conv:BoolToInvertedBoolConverter}}" IsEnabled="{Binding IsBusy, Converter={conv:BoolToInvertedBoolConverter}}"></Button>
+			</StackLayout>
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

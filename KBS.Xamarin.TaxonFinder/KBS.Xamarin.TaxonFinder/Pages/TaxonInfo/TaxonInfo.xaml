@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+			 Title="Artsteckbrief"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="KBS.App.TaxonFinder.Views.TaxonInfo"
+			 xmlns:cust="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels">
+
+    <ContentPage.BindingContext>
+        <mvvm:TaxonInfoViewModel></mvvm:TaxonInfoViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                    <Label Text="{Binding SelectedTaxon.LocalName}" FontAttributes="Italic" FontSize="Medium" Margin="12,0,0,0" />
+                    <!--Image Source="{Binding SelectedTaxon.IdentImageMale}" HeightRequest="24" WidthRequest="12" VerticalOptions="Center" HorizontalOptions="End">< />
+						<Image Source="{Binding SelectedTaxon.IdentImageFemale}" HeightRequest="24" WidthRequest="12" VerticalOptions="Center" HorizontalOptions="End"></Image-->
+                </StackLayout>
+            </StackLayout>
+            <StackLayout>
+                <StackLayout CompressedLayout.IsHeadless="True">
+                    <ScrollView>
+                        <StackLayout>
+                            <StackLayout IsVisible="{Binding SelectedTaxon.HasImages}" HeightRequest="395">
+                                <CarouselView ItemsSource="{Binding SelectedTaxon.Images}"
+                                  IsScrollAnimated="True"
+                                  IsBounceEnabled="True" HorizontalScrollBarVisibility="Always">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout>
+                                                <Frame HasShadow="False"
+									               BorderColor="#efefef"
+									               CornerRadius="0"
+									               Margin="0"
+                                                   HeightRequest="370"
+									               HorizontalOptions="FillAndExpand"                                                       
+									               VerticalOptions="StartAndExpand">
+                                                    <StackLayout>
+                                                        <!--Label Text="{Binding TaxonName}"
+											           FontAttributes="Bold"
+											           FontSize="Large"
+											           HorizontalOptions="Center"
+											           VerticalOptions="Center" /-->
+                                                        <Image Source="{Binding LoRes}"
+											                Aspect="AspectFit"
+											                HeightRequest="325"
+											                VerticalOptions="FillAndExpand">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type mvvm:TaxonInfoViewModel}},Path=ImageTappedCommand}" CommandParameter="{Binding ImageId}" NumberOfTapsRequired="2"></TapGestureRecognizer>
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                        <Label FontSize="Micro" Text="Doppel-Tap für mehr Informationen"></Label>
+                                                        <!--cust:HtmlLabel Text="{Binding Description}"
+                                                           TextColor="#333"
+											               FontAttributes="Italic"
+											               HorizontalOptions="StartAndExpand"
+                                                           FontSize="Micro"
+                                                           Margin="1"
+											               MaxLines="6"
+											               LineBreakMode="TailTruncation" /-->
+                                                    </StackLayout>
+                                                </Frame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                            </StackLayout>
+                            <StackLayout Padding="10" IsVisible="{Binding AllowTaxonInfoView}">
+                                <Button Text="Fund melden" Command="{Binding SaveTaxonCommand}" TextColor="{StaticResource notquitewhite}" x:Name="SaveTaxonButton" BackgroundColor="{StaticResource senck_green}"></Button>
+                            </StackLayout>
+                            <StackLayout>
+                            </StackLayout>
+                            <StackLayout Padding="10">
+                                <Label Text="&#x0a;Beschreibung" FontSize="Medium"></Label>
+                                <StackLayout>
+                                    <cust:HtmlLabel Text="{Binding SelectedTaxon.Diagnosis}" FontSize="Small" TextColor="#444444" NavigateToTaxon="HtmlLabel_NavigateToTaxon"></cust:HtmlLabel>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout>
+                                <Button VerticalOptions="EndAndExpand" Text="mehr auf BODENTIER hoch 4" TextColor="{StaticResource notquitewhite}" BackgroundColor="{StaticResource senck_brown}" Command="{Binding NavigateToWebCommand}" CommandParameter="{Binding SelectedTaxon}"></Button>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

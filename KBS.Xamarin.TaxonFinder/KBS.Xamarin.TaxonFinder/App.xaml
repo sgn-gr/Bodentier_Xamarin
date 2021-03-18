@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KBS.App.TaxonFinder.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="LightGray" />
+            </Style>
+            <Style TargetType="SearchBar">
+                <Setter Property="PlaceholderColor" Value="LightGray" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="#777" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+            <Color x:Key="senck_green">rgb(164,170,0)</Color>
+            <Color x:Key="senck_brown">rgb(130,91,81)</Color>
+            <Color x:Key="notquitewhite">rgb(250,250,250)</Color>
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="rgb(250,250,250)" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

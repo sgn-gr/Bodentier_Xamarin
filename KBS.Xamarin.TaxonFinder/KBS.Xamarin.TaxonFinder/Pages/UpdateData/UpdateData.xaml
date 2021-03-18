@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Aktualisierung"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 x:Class="KBS.App.TaxonFinder.Views.UpdateData">
+
+	<ContentPage.BindingContext>
+		<mvvm:UpdateDataViewModel></mvvm:UpdateDataViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.Content>
+		<ScrollView Padding="10">
+			<StackLayout VerticalOptions="FillAndExpand">
+                <Button FontSize="Small"  TextColor="#fff" BackgroundColor="{x:StaticResource senck_green}" x:Name ="LoadDataButton" Text="Artinformationen und Bilder aktualisieren&#x0a;(Hohe Qualität)" Command="{Binding LoadDataCommand}"></Button>
+                <Button FontSize="Small" TextColor="#fff" BackgroundColor="{x:StaticResource senck_brown}" x:Name ="LoadDataButton_lores" Text="Artinformationen und Bilder aktualisieren&#x0a;(Niedrige Qualität)" Command="{Binding LoadDataCommand_lores}"></Button>
+                <Label x:Name="DataStatusLabel" Text="{Binding DataStatus}" HorizontalTextAlignment="Center"></Label>
+                <ActivityIndicator x:Name="DownloadActivity" IsRunning="{Binding IsBusy}" VerticalOptions="CenterAndExpand"></ActivityIndicator>
+                <Label x:Name="ResultLabel" Text="{Binding Result}" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="Large"></Label>
+            </StackLayout>
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Fundort festlegen"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:dpd="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 x:Class="KBS.App.TaxonFinder.Views.RecordArea"
+			 x:Name="RecordAreaView"
+			 >
+	<ContentPage.BindingContext>
+		<mvvm:RecordAreaViewModel></mvvm:RecordAreaViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Content>
+		<StackLayout VerticalOptions="FillAndExpand">
+			<StackLayout x:Name="ButtonStack" VerticalOptions="StartAndExpand" Padding="10">
+				<Button Text="Position festlegen" Clicked="PinButton_Clicked"></Button>
+				<Button Text="Transekt festlegen" Clicked="LineButton_Clicked"></Button>
+				<Button Text="Fläche festlegen" Clicked="AreaButton_Clicked"></Button>
+				<Button Text="gespeicherten Fundort wählen" Clicked="ListButton_Clicked" IsVisible="{Binding PositionsExist}"></Button>
+			</StackLayout>
+			<dpd:ExtendedMap x:Name="map" HorizontalOptions="FillAndExpand" Tap="RecordMap_Tap" VerticalOptions="FillAndExpand" MapType="Hybrid" IsVisible="False"></dpd:ExtendedMap>
+			<ListView x:Name="PositionListView" IsVisible="False" ItemsSource="{Binding RecordList}" ItemTapped="PositionListView_ItemTapped" HasUnevenRows="True">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Label Text="{Binding LocalRecordId, Converter={conv:RecordToPositionTextConverter}}" FontSize="Medium" Margin="10,5,10,5"></Label>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<Grid x:Name="PositionToggle" IsVisible="False" Padding="10">
+								<Label Text="automatische Position" Grid.Column="0" HorizontalOptions="StartAndExpand"></Label>
+				<Switch Grid.Column="1" x:Name="AutoPositionSwitch" Toggled="AutoPositionSwitch_Toggled" HorizontalOptions="EndAndExpand"></Switch>
+			</Grid>
+			<Grid VerticalOptions="End" x:Name="ButtonGrid" Padding="5">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="40"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Button Text="Abbrechen" Grid.Column="0" Clicked="CancelButton_Clicked" x:Name="CancelButton"></Button>
+				<Button Text="Speichern" Grid.Column="1" Clicked="SaveButton_Clicked" x:Name="SaveButton" IsEnabled="False"></Button>
+			</Grid>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

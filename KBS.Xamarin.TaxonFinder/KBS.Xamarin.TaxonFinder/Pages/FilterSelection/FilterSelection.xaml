@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Bestimmen"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="KBS.App.TaxonFinder.Views.FilterSelection"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 xmlns:dpd="clr-namespace:KBS.App.TaxonFinder.CustomRenderers">
+
+    <ContentPage.BindingContext>
+        <mvvm:FilterSelectionViewModel></mvvm:FilterSelectionViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <!--ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem-->
+        <ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" IconImageSource="help.png">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout HeightRequest="100" VerticalOptions="FillAndExpand">
+            <ListView HeightRequest="20" Margin="0,0,0,0" ItemsSource="{Binding SelectedTaxonList}" ItemTapped="ListView_ItemTapped" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="0,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="275"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--Image Grid.Column="0" Source="{Binding ListImage}"></-->
+                                <Label Grid.Column="1" Text="{Binding LocalName}" VerticalOptions="Center" FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="StartAndExpand" Margin="0"></Label>
+                                <Label Grid.Column="2" Text="{Binding AllowTaxonInfoViewIcon}" VerticalOptions="Center" ></Label>
+                                    <!--StackLayout Orientation="Horizontal" Margin="0,-4,0,0">
+										<Label Text="{Binding TaxonName}" FontAttributes="Italic" FontSize="Small" ></Label>
+										<dpd:IconLabel Icon="{Binding TaxonTypeId, Converter={conv:TaxonTypeToIconConverter}}" FontSize="Small"></dpd:IconLabel>
+									</StackLayout -->
+                                <!--StackLayout Grid.Column="2" VerticalOptions="StartAndExpand" IsVisible="{Binding ShowAll}">
+									<dpd:IconLabel Icon="CheckedCheckbox" FontSize="Small"></dpd:IconLabel>
+									<Label Text="{Binding Relevance}" FontAttributes="Bold" FontSize="Small" Margin="0"></Label>
+								</StackLayout-->
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout HeightRequest="30" BackgroundColor="{x:StaticResource senck_green}" Margin="0,0,0,0" Padding="0,2,0,3" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="10" HorizontalOptions="FillAndExpand">
+                <!--Filter ausblenden-->
+                <Grid x:Name="ButtonGrid" Padding="0,0,0,0" Margin="0,0,0,0" BackgroundColor="White" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Margin="0,0,0,0" WidthRequest="100" Padding="2,2" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="6" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" FontSize="Small" Text="{Binding ShowFilterButtonText}" Command="{Binding ShowSelectedTaxonCommand}"></Button>
+                    <Button Padding="2,2" Margin="0,0,0,0" Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" TextColor="{x:StaticResource senck_brown}" Command="{Binding ShowSelectedTaxonCommand}" Text="{Binding ShowChevronUpDown}" FontSize="Small"></Button>
+                </Grid>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="400" Margin="0,0" IsVisible="{Binding ShowFilterSelection}" Padding="0,0,0,0">
+                <!-- Filter List -->
+                <!-- DKGs -->
+                <ListView CachingStrategy = "RecycleElement" Margin="0,0,0,0" RowHeight="40" VerticalOptions="FillAndExpand" x:Name="CategoryList" ItemsSource="{Binding CategoryItems}" ItemTapped="CategoryList_ItemTapped"  IsVisible="{Binding ShowCategoryList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="15,0,0,0" Margin="0,0,5,0" BackgroundColor="{Binding VisibilityCategoryId, Converter={conv:VisibilityCatToColourConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="9*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label TextColor="WhiteSmoke" Grid.Column="0" Text="{Binding OptionText}" VerticalOptions="CenterAndExpand"></Label>
+                                    <dpd:IconLabel Grid.Column="1" HeightRequest="16" TextColor="White" Icon="{Binding Selected, Converter={conv:BoolToSelectionImageConverter}}" VerticalOptions="CenterAndExpand" Margin="0,0,0,0"></dpd:IconLabel>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!--Selected DKG Name and Return Button -->
+                <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Gray" Padding="0,0,0,2" Margin="0,1,0,1" IsVisible="{Binding ShowCatUpCommand}">
+                    <Grid BackgroundColor="WhiteSmoke" x:Name="CategoryName" Padding="0,0" ColumnSpacing="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button BackgroundColor="WhiteSmoke" Margin="0,0,0,0" Padding="0,0,0,0" Grid.Column="0" Grid.Row="0" HeightRequest="50" Grid.ColumnSpan="1" HorizontalOptions="CenterAndExpand" Text="&lt;" FontAttributes="Bold" FontSize="Small" VerticalOptions="Center" IsVisible="{Binding ShowCatUpCommand}" Command="{Binding GotoParentCommand}"></Button>
+                        <Label Margin="0" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Text="{Binding CurrentItemText}" HeightRequest="50" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></Label>
+                    </Grid>
+                </StackLayout>
+                <!-- DKs VALUELIST -->
+                <StackLayout IsVisible="{Binding ShowFilterList}">
+                    <ListView HasUnevenRows="True" CachingStrategy="RecycleElement" ItemTapped="SelectionList_ItemTapped" x:Name="SelectionListValuelist" ItemsSource="{Binding FilterItems}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsNotValueDataType}">
+                        <ListView.ItemTemplate CachingStrategy="RecycleElement" FontSize="Small" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsNotValueDataType}">
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid VerticalOptions="StartAndExpand" Margin="1,0,1,0" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsNotValueDataType}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2"></ColumnDefinition>
+                                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" FontSize="Small" Text="{Binding OptionText}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" VerticalOptions="Center" Margin="15,0,5,0"  IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsNotValueDataType}"></Label>
+                                        <dpd:IconLabel Grid.Row="0" Grid.Column="2" Icon="{Binding Selected, Converter={conv:BoolToSelectionImageConverter}}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" Margin="0,0,0,0" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsNotValueDataType}"></dpd:IconLabel>
+                                        <StackLayout  IsVisible="{Binding HasImages}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                                            <CarouselView HeightRequest="100" x:Name="cView" ItemsSource="{Binding Images}" VerticalOptions="FillAndExpand"
+                                                 HorizontalScrollBarVisibility="Always">
+                                                <CarouselView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackLayout>
+                                                            <Frame HasShadow="False"
+									                           BorderColor="#efefef"
+                                                               BackgroundColor="#efefef"
+									                           CornerRadius="0"
+									                           Margin="0"
+                                                               Padding="1"
+                                                               HeightRequest="100"
+									                           HorizontalOptions="FillAndExpand"                                                       
+									                           VerticalOptions="Start">
+                                                                <StackLayout>
+                                                                    <Image Aspect="AspectFit"
+											                               HeightRequest="100"
+											                               HorizontalOptions="FillAndExpand"
+                                                                           Source="{Binding LoRes}">
+                                                                            <Image.GestureRecognizers>
+                                                                                <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}},Path=ImageTappedCommand}" CommandParameter="{Binding ImageId}" NumberOfTapsRequired="2"></TapGestureRecognizer>
+                                                                            </Image.GestureRecognizers>
+                                                                    </Image>
+                                                                </StackLayout>
+                                                            </Frame>
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </CarouselView.ItemTemplate>
+                                            </CarouselView>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- DK VALUE -->
+                    <!-- if value, different key layout -->
+                    <StackLayout Grid.ColumnSpan="2" HeightRequest="100" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsValueDataType}" x:Name="ValueTemplate" Margin="0,0" Padding="3,3">
+                        <Grid Padding="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Slider x:Name="Slider" Value="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=SliderValue, Mode=TwoWay}" Minimum="0" Maximum="100" MinimumTrackColor="{x:StaticResource senck_brown}" MaximumTrackColor="#ddd" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"/>
+                            <Label Padding="0,0" FontSize="Small" HeightRequest="100" BackgroundColor="White" x:Name="sliderLabel" Grid.Row="0" Grid.Column="2"
+                                                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                                Text="{Binding Source={x:Reference Slider}, Path=Value, StringFormat='{0:F0}'}"
+                                                HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,0,0"
+                                               />
+                            <!--Button Padding="0,0,0,0" x:Name="SubmitSliderVal" Text="Ok" BackgroundColor="{x:StaticResource senck_green}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" TextColor="{x:StaticResource notquitewhite}" FontSize="Small" VerticalOptions="CenterAndExpand" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=IsValueDataType}" Command="{Binding Source={RelativeSource AncestorType={x:Type mvvm:FilterSelectionViewModel}}, Path=SubmitSliderValueCommand}"></-->
+                            <!--Button BackgroundColor="White" BorderColor="AliceBlue" Margin="0,0,0,0" Padding="0,0,0,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" HorizontalOptions="CenterAndExpand" Text="&lt;" FontAttributes="Bold" FontSize="Small" VerticalOptions="CenterAndExpand" IsVisible="{Binding ShowCatUpCommand}" Command="{Binding GotoParentCommand}"></-->
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+                <!-- Bottom -->
+                <Grid BackgroundColor="white" Margin="0,0,0,0" ColumnSpacing="2" HeightRequest="70" VerticalOptions="End" IsVisible="{Binding ShowFilterSelection}" Padding="0,0,0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button BackgroundColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="0" Padding="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Micro" Text="Filter Zurücksetzen" Command="{Binding ResetSelectedTaxonCommand}" IsEnabled="{Binding EnableReset}"></Button>
+                    <Label Grid.Row="0" Grid.ColumnSpan="5" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.Column="5" HorizontalOptions="CenterAndExpand" Text="{Binding SelectedTaxonCount, StringFormat='{0:N} Taxa'}" FontSize="Small"></Label>
+                    <!--StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="5">
+                        <Label VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"  Text="Genaue Treffer" FontSize="Small"></Label>
+                        <Switch x:Name="TemplateSwitch" Grid.Column="1" Grid.Row="1" IsToggled="{Binding ShowAllTaxa,Mode=TwoWay}" HorizontalOptions="End"></Switch>
+                    </StackLayout-->
+                    <Button Grid.Column="0" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="10" FontSize="Small" VerticalOptions="FillAndExpand" Grid.Row="1" Text="Bestimmung auf BODENTIER hoch 4" TextColor="{StaticResource notquitewhite}" BackgroundColor="{StaticResource senck_brown}" Command="{Binding NavigateToWebCommand}" CommandParameter="{Binding SelectedTaxon}"></Button>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

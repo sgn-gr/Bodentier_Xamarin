@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="KBS.App.TaxonFinder">
+    <type fullname="KBS.App.TaxonFinder*" />
+  </assembly>
+</linker>

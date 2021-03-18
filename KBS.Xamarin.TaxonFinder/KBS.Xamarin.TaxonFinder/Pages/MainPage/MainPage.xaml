@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="BODENTIER hoch 4"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 x:Class="KBS.App.TaxonFinder.Views.MainPage"
+			 x:Name="MainPageView">
+
+	<ContentPage.BindingContext>
+		<mvvm:MainPageViewModel></mvvm:MainPageViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Feedback" Order="Primary" Clicked="Feedback_Clicked" Icon="send.png"></ToolbarItem>
+		<ToolbarItem Text="Impressum" Order="Primary" Clicked="Help_Clicked" Icon="info.png"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Content>
+		<AbsoluteLayout>
+			<Image Source="background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="1,1,0.8,0.6" AbsoluteLayout.LayoutFlags="All" Opacity="0.4"></Image>
+			<ScrollView Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+				<StackLayout VerticalOptions="FillAndExpand">
+					<StackLayout VerticalOptions="StartAndExpand">
+                        <Button x:Name ="OrderListButton" Text="Artsteckbriefe" Clicked="OrderListButton_Clicked"></Button>
+                        <Button x:Name="OrderSelectionButton" Text="Bestimmen" Clicked="OrderSelectionButton_Clicked"></Button>
+                        <Button x:Name ="AddRecordButton" Text="Fund melden" Clicked="AddRecordButton_Clicked"></Button>
+						<Button x:Name ="RecordListButton" Text="Fundliste" Clicked="RecordListButton_Clicked"></Button>
+						<Button x:Name ="UpdateButton" Text="Aktualisierung" Clicked="UpdateButton_Clicked"></Button>
+                        <Button x:Name ="RegisterButton" Text="Anmeldung" Clicked="RegisterButton_Clicked"></Button>
+                    </StackLayout>
+					<StackLayout VerticalOptions="EndAndExpand" x:Name="HintStack" IsVisible="{Binding ActionNecessary}">
+						<Label x:Name="HintLabel" Text="{Binding HintLabelText}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"></Label>
+						<Button x:Name="HintButton" Text="{Binding HintButtonText}" Command="{Binding GetToHintCommand}" Margin="0"></Button>
+					</StackLayout>
+					<Label HorizontalTextAlignment="Center" TextColor="Gray" x:Name="VersionLabel"></Label>
+				</StackLayout>
+			</ScrollView>
+		</AbsoluteLayout>
+	</ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Audioaufnahme"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:cust="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 x:Class="KBS.App.TaxonFinder.Views.TakeAudio">
+
+    <ContentPage.BindingContext>
+        <mvvm:TakeAudioViewModel></mvvm:TakeAudioViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView Padding="10">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="10" IsEnabled="{Binding EnableRecording}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RecordingCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <cust:IconLabel Icon="Record" FontSize="40" TextColor="Red" IsVisible="{Binding Recorder.IsRecording, Converter={conv:BoolToInvertedBoolConverter}}" IsEnabled="{Binding EnableRecording}"></cust:IconLabel>
+                    <cust:IconLabel Icon="Stop" FontSize="40" IsVisible="{Binding Recorder.IsRecording}" IsEnabled="{Binding EnableRecording}"></cust:IconLabel>
+                    <Label Text="{Binding RecordingText}" Padding="10,0" VerticalOptions="Center" IsEnabled="{Binding EnableRecording}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="10" IsEnabled="{Binding EnablePlaying}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PlayingCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <cust:IconLabel Icon="Play" FontSize="40" IsVisible="{Binding Player.IsPlaying, Converter={conv:BoolToInvertedBoolConverter}}" IsEnabled="{Binding EnablePlaying}"></cust:IconLabel>
+                    <cust:IconLabel Icon="Pause" FontSize="40" IsVisible="{Binding Player.IsPlaying}" IsEnabled="{Binding EnablePlaying}"></cust:IconLabel>
+                    <Label Text="{Binding PlayingText}" Padding="10,0" VerticalOptions="Center" IsEnabled="{Binding EnablePlaying}"/>
+                </StackLayout>
+                <Label x:Name="TimeLabel" Text="{Binding Time}" FontSize="50" Padding="20" VerticalOptions="Center" HorizontalOptions="Center" />
+                <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding IsTimerRunning}"></ActivityIndicator>
+                <Grid VerticalOptions="EndAndExpand" x:Name="ButtonGrid" Padding="5" RowDefinitions="Auto">
+                    <Button Text="Abbrechen" Command="{Binding CancelCommand}" Grid.Column="0" x:Name="CancelButton"></Button>
+                    <Button Text="Speichern" Command="{Binding SaveCommand}" Grid.Column="1" x:Name="SaveButton" IsEnabled="{Binding RecordExists}"></Button>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

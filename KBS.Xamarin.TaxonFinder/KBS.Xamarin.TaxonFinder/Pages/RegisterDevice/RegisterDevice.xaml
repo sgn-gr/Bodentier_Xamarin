@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Anmeldung"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 x:Class="KBS.App.TaxonFinder.Views.RegisterDevice">
+
+	<ContentPage.BindingContext>
+		<mvvm:RegisterDeviceViewModel></mvvm:RegisterDeviceViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png" ></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Content>
+		<AbsoluteLayout>
+            <Image Source="background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="1,1,0.8,0.6" AbsoluteLayout.LayoutFlags="All" Opacity="0.4"></Image>
+			<ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" Padding="10" AbsoluteLayout.LayoutFlags="All">
+			<StackLayout VerticalOptions="FillAndExpand">
+				<StackLayout x:Name="LoginStack" IsVisible="{Binding IsLoggedIn, Converter={conv:BoolToInvertedBoolConverter}}">
+					<Label Text="E-Mail:"></Label>
+					<Entry Text="{Binding Username}" Keyboard="Email"></Entry>
+					<Label Text="Passwort:"></Label>
+					<Entry Text="{Binding Password}" IsPassword="True"></Entry>
+					<StackLayout x:Name="RegisterStack" IsVisible="False">
+						<Label Text="Passwort bestätigen:"></Label>
+						<Entry Text="{Binding PasswordSecond}" IsPassword="True"></Entry>
+						<Label Text="Vorname:"></Label>
+						<Entry Text="{Binding Givenname}"></Entry>
+						<Label Text="Nachname:"></Label>
+						<Entry Text="{Binding Surname}"></Entry>
+					</StackLayout>
+                        <Button Text="Anmelden" Command="{Binding LoginCommand}" x:Name="LoginButton" IsVisible="{Binding TryingToRegister, Converter={conv:BoolToInvertedBoolConverter}}" IsEnabled="{Binding IsBusy, Converter={conv:BoolToInvertedBoolConverter}}"></Button>
+				</StackLayout>
+				<Button Text="Abmelden" Command="{Binding LogoutCommand}" x:Name="LogoutButton" IsVisible="{Binding IsLoggedIn}"></Button>
+				<Label Text="{Binding TopResult}" x:Name="TopResultLabel" IsVisible="{Binding IsLoggedIn}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"></Label>
+                    <Button Text="Neu registrieren" x:Name="AddUserButton" Clicked="AddUserButton_Clicked" Command="{Binding AddUserCommand}" IsVisible="{Binding IsLoggedIn, Converter={conv:BoolToInvertedBoolConverter}}" IsEnabled="{Binding IsBusy, Converter={conv:BoolToInvertedBoolConverter}}"></Button>
+				<ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="CenterAndExpand"></ActivityIndicator>
+				<Label VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Text="{Binding Result}" FontSize="Large"></Label>
+			</StackLayout>
+		</ScrollView>
+		</AbsoluteLayout>
+	</ContentPage.Content>
+</ContentPage>

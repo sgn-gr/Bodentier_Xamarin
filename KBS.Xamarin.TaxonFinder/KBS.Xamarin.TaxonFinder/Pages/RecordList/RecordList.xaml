@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Fundliste"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="KBS.App.TaxonFinder.Views.RecordList"
+			 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+			 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+			 xmlns:dpd="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 x:Name="RecordListView">
+	<ContentPage.BindingContext>
+		<mvvm:RecordListViewModel></mvvm:RecordListViewModel>
+	</ContentPage.BindingContext>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Content>
+		<StackLayout CompressedLayout.IsHeadless="True">
+			<StackLayout x:Name="EmptyStack" Padding="10" IsVisible="False" CompressedLayout.IsHeadless="True">
+				<Label Text="Die Fundliste ist leer." VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+			</StackLayout>
+			<StackLayout IsVisible="{Binding EnableSearch, Mode=TwoWay}" CompressedLayout.IsHeadless="True">
+				<SearchBar Text="{Binding SearchText}" HeightRequest="50" Placeholder="Suchen"></SearchBar>
+				<Grid Margin="10,0,10,0" CompressedLayout.IsHeadless="True">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="40"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="40"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="45"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Label Grid.Column="0" Text="Von:" FontSize="Small" VerticalTextAlignment="Center"></Label>
+					<DatePicker Grid.Column="1" Date="{Binding FromDate, Mode=TwoWay}" x:Name="FromDate" VerticalOptions="Center">
+						<DatePicker.Format>dd.MM.yyyy</DatePicker.Format>
+					</DatePicker>
+                    <Label Grid.Column="2" Text="Bis:" FontSize="Small" VerticalTextAlignment="Center"></Label>
+					<DatePicker Grid.Column="3" Date="{Binding ToDate, Mode=TwoWay}" x:Name="ToDate" VerticalOptions="Center">
+						<DatePicker.Format>dd.MM.yyyy</DatePicker.Format>
+					</DatePicker>
+				</Grid>
+			</StackLayout>
+			<ListView ItemsSource="{Binding SelectedRecordList}" ItemTapped="ListView_ItemTapped" x:Name="ListViewSource" HasUnevenRows="True">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid BackgroundColor="{Binding IsEditable, Converter={conv:BoolToBackgroundColor}}" RowSpacing="0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="5*"></ColumnDefinition>
+									<ColumnDefinition Width="75"></ColumnDefinition>
+									<ColumnDefinition Width="4*"></ColumnDefinition>
+									<ColumnDefinition Width="2*"></ColumnDefinition>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition Height="33"></RowDefinition>
+								</Grid.RowDefinitions>
+								<StackLayout Grid.Column="0" Grid.Row="0" Margin="10,0,0,0">
+									<Label Text="{Binding TaxonId, Converter={conv:TaxonIdToTaxonNameConverter}}" FontAttributes="Bold" FontSize="Small"></Label>
+								</StackLayout>
+								<StackLayout Grid.Column="1" Grid.Row="0" >
+									<Label Text="{Binding RecordDate, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Small"></Label>
+								</StackLayout>
+								<StackLayout Grid.Column="2" Grid.Row="0" >
+									<Label Text="{Binding HabitatName}" FontSize="Small"></Label>
+								</StackLayout>
+                                <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" IsVisible="{Binding HabitatDescription, Converter={conv:EmptyStringToBoolConverter}}">
+									<Label Text="{Binding HabitatDescription}" FontAttributes="Italic" FontSize="Micro" LineBreakMode="TailTruncation" Margin="10,0"></Label>
+								</StackLayout>
+								<StackLayout Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Padding="0,0,10,0">
+									<StackLayout.GestureRecognizers>
+										<TapGestureRecognizer Command="{Binding Path=BindingContext.CopyCommand, Source={x:Reference RecordListView}}" CommandParameter="{Binding LocalRecordId}"/>
+									</StackLayout.GestureRecognizers>
+									<dpd:IconLabel Icon="Plus" FontSize="Large" TextColor="{x:StaticResource senck_brown}"></dpd:IconLabel>
+								</StackLayout>
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackLayout Padding="10">
+				<ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+				<Label Text="{Binding Result}" VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="Large" x:Name="ResultLabel" IsVisible="{Binding Result, Converter={conv:EmptyStringToBoolConverter}}"></Label>
+				<Button VerticalOptions="EndAndExpand" Text="{Binding SyncButtonText}" Command="{Binding SaveTaxaCommand}" Clicked="SyncButton_Clicked" x:Name="SyncButton" TextColor="{x:StaticResource senck_green}" IsVisible="{Binding ShowSyncButton}" ></Button>
+                <Button HorizontalOptions="FillAndExpand" FontSize="Small" VerticalOptions="FillAndExpand" Text="Mehr auf BODENTIER hoch 4" TextColor="{StaticResource notquitewhite}" BackgroundColor="{StaticResource senck_brown}" Command="{Binding NavigateToWebCommand}" CommandParameter="{Binding SelectedTaxon}"></Button>
+            </StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

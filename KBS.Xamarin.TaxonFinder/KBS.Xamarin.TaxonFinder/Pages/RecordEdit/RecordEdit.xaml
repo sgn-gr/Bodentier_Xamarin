@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Fund melden"
+				 xmlns="http://xamarin.com/schemas/2014/forms"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				 xmlns:dpd="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+				 xmlns:mvvm="clr-namespace:KBS.App.TaxonFinder.ViewModels"
+				 xmlns:conv="clr-namespace:KBS.App.TaxonFinder.Converters"
+				 x:Class="KBS.App.TaxonFinder.Views.RecordEdit"
+				 x:Name="RecordEditView"
+                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+				 >
+    <ContentPage.BindingContext>
+        <mvvm:RecordEditViewModel></mvvm:RecordEditViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Hilfe" Order="Primary" Clicked="Help_Clicked" Icon="help.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView VerticalOptions="FillAndExpand" x:Name="MapHolder" >
+                <StackLayout>
+                    <StackLayout Padding="10,10,10,0">
+                        <Label FontSize="Large" x:Name="TaxonName" IsEnabled="{Binding IsEditable}"></Label>
+
+                        <Label Text="Nächstgelegener Ort*:" IsEnabled="{Binding IsEditable}"></Label>
+                        <Entry Keyboard="Default" Text="{Binding HabitatName}" IsEnabled="{Binding IsEditable}" x:Name="PlaceEntry"></Entry>
+
+                        <Label Text="Fundmelder Name*:" IsEnabled="{Binding IsEditable}"></Label>
+                        <Entry Keyboard="Default" Text="{Binding ReportedByName}" IsEnabled="{Binding IsEditable}" x:Name="ReportedByEntry"></Entry>
+
+                        <Label Text="Datum des Fundes:" IsEnabled="{Binding IsEditable}"></Label>
+                        <DatePicker Date="{Binding RecordDate}" x:Name="RecordDate" IsEnabled="{Binding IsEditable}" MaximumDate="{x:Static sys:DateTime.Now}">
+                            <DatePicker.Format>dd.MM.yyyy</DatePicker.Format>
+                        </DatePicker>
+
+                        <Label Text="Anzahl*:" IsEnabled="{Binding IsEditable}"></Label>
+                        <Entry Keyboard="Numeric" Text="{Binding TotalCount}" x:Name="TotalCount" IsEnabled="{Binding IsEditable}"></Entry>
+
+                        <Label Text="Kommentar an Taxonexperten:" IsEnabled="{Binding IsEditable}"></Label>
+                        <Editor Text="{Binding HabitatDescription}" IsEnabled="{Binding IsEditable}" AutoSize="TextChanges"></Editor>
+                        <dpd:ExtendedMap x:Name="map" HorizontalOptions="FillAndExpand" Tap="RecordMap_Tap" VerticalOptions="FillAndExpand" MapType="Hybrid" IsVisible="True" HeightRequest="300">
+
+                        </dpd:ExtendedMap>
+                        <Grid>
+                            <Label Text="automatische Position" Grid.Column="0" IsEnabled="{Binding IsEditable}" HorizontalOptions="StartAndExpand"></Label>
+                            <Switch Grid.Column="1" x:Name="AutoPositionSwitch" Toggled="AutoPositionSwitch_Toggled" IsToggled="{Binding AutoPosition,Mode=TwoWay}" IsEnabled="False" HorizontalOptions="EndAndExpand"></Switch>
+                        </Grid>
+                        <Button x:Name ="RecordAreaButton" IsVisible="False" Text="Fundort festlegen" Clicked="RecordAreaButton_Clicked" ></Button>
+                        <!--<Grid>
+                            <Grid.RowDefinitions>
+								<RowDefinition Height="20"></RowDefinition>
+								<RowDefinition></RowDefinition>
+							</Grid.RowDefinitions>
+							<Label Grid.Column="0" Grid.Row="0" Text="Breite:" IsEnabled="{Binding IsEditable}"></Label>
+							<Label Grid.Column="1" Grid.Row="0" Text="Länge:" IsEnabled="{Binding IsEditable}"></Label>
+							<Label Grid.Column="2" Grid.Row="0" Text="Höhe:" IsEnabled="{Binding IsEditable}"></Label>
+							<Label Grid.Column="3" Grid.Row="0" Text="Genauigkeit:" IsEnabled="{Binding IsEditable}"></Label>
+
+							<Entry Grid.Column="0" Grid.Row="1" Text="{Binding Latitude}" IsEnabled="False"></Entry>
+							<Entry Grid.Column="1" Grid.Row="1" Text="{Binding Longitude}" IsEnabled="False"></Entry>
+							<Entry Grid.Column="2" Grid.Row="1" Text="{Binding Height}" IsEnabled="False"></Entry>
+							<Entry Grid.Column="3" Grid.Row="1" Text="{Binding Accuracy}" IsEnabled="False"></Entry>
+						</Grid>-->
+                        <Grid>
+                            <Button Text="Bild aufnehmen" FontSize="Small" BorderWidth="1" BorderColor="{x:StaticResource senck_brown}" TextColor="{x:StaticResource senck_green}" Grid.Column="0" Command="{Binding TakePhotoCommand}" IsEnabled="{Binding IsEditable}"></Button>
+                            <Button Text="Bild auswählen" FontSize="Small" BorderWidth="1" BorderColor="{x:StaticResource senck_brown}" TextColor="{x:StaticResource senck_green}" Grid.Column="1" Command="{Binding SelectPhotoCommand}" IsEnabled="{Binding IsEditable}"></Button>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout VerticalOptions="EndAndExpand" HeightRequest="{Binding MediaHeight}">
+                        <ListView x:Name="MediaListView" ItemTapped="MediaListView_ItemTapped" ItemsSource="{Binding SelectedMedia}" RowHeight="45">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="9*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0" Text="{Binding Path,Converter={conv:MediaFileToFilenameConverter}}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding Path=BindingContext.IsEditable, Source={x:Reference RecordEditView}}"></Label>
+                                            <dpd:IconLabel Grid.Column="1" Icon="Delete" FontSize="Large" VerticalOptions="CenterAndExpand" WidthRequest="24" IsEnabled="{Binding Path=BindingContext.IsEditable, Source={x:Reference RecordEditView}}">
+                                                <dpd:IconLabel.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveMediaCommand, Source={x:Reference RecordEditView}}" CommandParameter="{Binding .}" NumberOfTapsRequired="1" />
+                                                </dpd:IconLabel.GestureRecognizers>
+                                            </dpd:IconLabel>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+            <Grid VerticalOptions="EndAndExpand" IsVisible="{Binding IsEditable}" x:Name="ButtonGrid" Padding="10,0,10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="als Entwurf speichern" FontSize="Medium"></Label>
+                <Switch Grid.Column="2" Grid.Row="0" x:Name="TemplateSwitch" Toggled="TemplateSwitch_Toggled" IsToggled="{Binding SaveAsTemplate,Mode=TwoWay}"></Switch>
+                <Button Text="Abbrechen" Grid.Column="0" Grid.Row="1" Command="{Binding DeleteRecordCommand}" x:Name="DeleteButton"></Button>
+                <Button Text="Speichern" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Clicked="SaveButton_Clicked" Command="{Binding SaveRecordCommand}" x:Name="SaveButton"></Button>
+                <Button Grid.Column="0" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="3" FontSize="Small" VerticalOptions="FillAndExpand" Grid.Row="2" Text="Mehr auf BODENTIER hoch 4" TextColor="{StaticResource notquitewhite}" BackgroundColor="{StaticResource senck_brown}" Command="{Binding NavigateToWebCommand}" CommandParameter="{Binding SelectedTaxon}"></Button>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Hilfe"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:cust="clr-namespace:KBS.App.TaxonFinder.CustomRenderers"
+			 x:Class="KBS.App.TaxonFinder.Views.HelpPage"
+             BackgroundColor="White">
+
+	<ContentPage.Content>
+		<ScrollView Padding="10">
+			<StackLayout>
+				<cust:HtmlLabel Text="" x:Name="HelpLabel"></cust:HtmlLabel>
+                <Label x:Name="FormatLabel" IsVisible="false"></Label>
+                <Image x:Name="Logo1" Source="senckenberg.png" Margin="20" HorizontalOptions="Center" IsVisible="false" />
+                <Image x:Name="Logo2" Source="kbs.png" Margin="20" HorizontalOptions="Center" IsVisible="false" />
+                <Image x:Name="Logo3" Source="Logo_museum4punkt0.jpg" Margin="20" HorizontalOptions="Center" IsVisible="false"/>
+                <Image x:Name="Logo4" Source="Logo_BKM.gif" Margin="20" HorizontalOptions="Center" IsVisible="false" />
+            </StackLayout>
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

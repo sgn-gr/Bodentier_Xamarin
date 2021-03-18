@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionName="1.0.22" package="com.kbs.idoapp" android:versionCode="22">
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.LOCATION_HARDWARE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<application android:label="BODENTIER hoch 4" android:icon="@drawable/icon" android:theme="@android:style/Theme.Material" android:requestLegacyExternalStorage="true">
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBhurWvGtiqCWV6yyM1dVi783zuxy0onC4" />
+		<activity android:name=".MainActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" />
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.kbs.idoapp.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+		</provider>
+		<uses-library android:name="org.apache.http.legacy" android:required="false" />
+	</application>
+</manifest>
