@@ -1,5 +1,5 @@
 # Bodentier_Xamarin
-# Bodentier_Xamarin / Kbs.IdoWeb.TaxonFinder
+# Bodentier_Xamarin / Kbs.Xamarin.TaxonFinder
 
 ## 3. Abstract
 Bodentier_Xamarin is a basic Xamarin-based Project offering Android- and iOS-App Development related to the bodentierhochvier.de website.  
