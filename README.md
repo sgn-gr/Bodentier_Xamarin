@@ -7,7 +7,7 @@ The main features consist of pages to identify of animals based on description k
 The generation and update of the json files can  be done through Kbs.Idoweb.Import.
 
 ### Förderhinweis 
-This WordPress Theme is part of the project museum4punkt0 - Digital Strategies for the 
+This C# Xamarin Application is part of the project museum4punkt0 - Digital Strategies for the 
 Museum of the Future, sub-project [englischer Teilprojektname einfügen, gemäß 
 museum4punkt0-Website]. The project museum4punkt0 is funded by the Federal Government 
 Commissioner for Culture and the Media in accordance with a resolution issued by the German 
