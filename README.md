@@ -17,9 +17,9 @@ Diese C# Xamarin Applikation ist Teil des Projektes museum4punkt0 - Digitale Str
 Weitere Informationen: www.museum4punkt0.de
 
 ## Installation
-  1. Install [Visual Studio](https://visualstudio.microsoft.com/de/downloads/)  
-  2. Install [Xamarin](https://visualstudio.microsoft.com/de/xamarin/)  
-  3. Install latest [Android SDK](https://docs.microsoft.com/de-de/xamarin/android/get-started/installation/android-sdk)  
+  1. Install [Visual Studio](https://visualstudio.microsoft.com/downloads/)  
+  2. Install [Xamarin](https://visualstudio.microsoft.com/xamarin/)  
+  3. Install latest [Android SDK](https://docs.microsoft.com/xamarin/android/get-started/installation/android-sdk)  
   4. Projektlösung laden und im entsprechenden Emulator ausführen
 
 ## Benutzung   
