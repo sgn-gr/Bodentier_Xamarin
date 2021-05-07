@@ -23,10 +23,10 @@ Weitere Informationen: www.museum4punkt0.de
   4. Projektlösung laden und im entsprechenden Emulator ausführen
 
 ## Benutzung   
-Nach erfolgreicher Installation kann man Code-Änderungen, Projekt-Updates und Updates der Apps (Android, iOS) durchführen. Die Erzeugung und Aktualisierung der json-Dateien kann über Kbs.Idoweb.Import erfolgen.
+Nach erfolgreicher Installation kann man Code-Änderungen, Projekt-Updates und Updates der Apps (Android, iOS) durchführen. Die Erzeugung und Aktualisierung der json-Dateien kann über [Kbs.Idoweb.Import](https://github.com/senckenberg/Kbs.IdoWeb.Import.git) erfolgen.
 
 ## Credits  
-Auftraggeber/Rechteinhaber: [Senckenberg Museum für Naturkunde Görlitz](https://museumgoerlitz.senckenberg.de/de/)  
+Auftraggeber/Rechteinhaber: [Senckenberg Museum für Naturkunde Görlitz](https://museumgoerlitz.senckenberg.de/)  
 Entwicklung: [Kunert Business Software GmbH](https://www.kbs-leipzig.de/kbsweb/)
 
 ## Lizenz  
