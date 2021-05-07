@@ -9,12 +9,12 @@
 - [Lizenz](#Lizenz)
 
 ## Kurzbeschreibung
-„BODENTIER hoch 4“ ist ein einfaches Xamarin-basiertes Projekt, das Android- und iOS-App-Entwicklung im Zusammenhang mit der Website bodentierhochvier.de bietet.
+„BODENTIER hoch 4“ ist ein einfaches Xamarin-basiertes Projekt, das Android- und iOS-App-Entwicklung im Zusammenhang mit der Website [bodentierhochvier.de](https://bodentierhochvier.de/) bietet.
 Die Hauptfunktionen bestehen aus Seiten zur Identifizierung von Tieren anhand von Beschreibungsschlüsseln, zum Erstellen und Bearbeiten von Datensätzen und zum Blättern durch die Charakterisierungen von Tieren.
 
 ### Förderhinweis
 Diese C# Xamarin Applikation ist Teil des Projektes museum4punkt0 - Digitale Strategien für das Museum der Zukunft, Teilprojekt „BODENTIER hoch 4“. Das Projekt museum4punkt0 wird gefördert durch die  Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages.  
-Weitere Informationen: www.museum4punkt0.de
+Weitere Informationen: [www.museum4punkt0.de](https://www.museum4punkt0.de/)
 
 ## Installation
   1. Install [Visual Studio](https://visualstudio.microsoft.com/downloads/)  
