@@ -17,7 +17,6 @@ Die App bietet folgende Hauptfunktionen:
 -	Steckbriefe für die in Deutschland vorkommenden Arten der Hundertfüßer, Doppelfüßer und Landasseln
 -	Feedbackformular
 
-
 ### Förderhinweis
 Diese C# Xamarin Applikation ist Teil des Projektes museum4punkt0 - Digitale Strategien für das Museum der Zukunft, Teilprojekt „BODENTIER hoch 4“. Das Projekt museum4punkt0 wird gefördert durch die  Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages.  
 Weitere Informationen: [www.museum4punkt0.de](https://www.museum4punkt0.de/)
