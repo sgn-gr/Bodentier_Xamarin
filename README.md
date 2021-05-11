@@ -31,7 +31,7 @@ Weitere Informationen: [www.museum4punkt0.de](https://www.museum4punkt0.de/)
 Nach erfolgreicher Installation kann man Code-Änderungen, Projekt-Updates und Updates der Apps (Android, iOS) durchführen. Die Erzeugung und Aktualisierung der json-Dateien kann über [Kbs.Idoweb.Import](https://github.com/senckenberg/Kbs.IdoWeb.Import/) erfolgen.
 
 ## Credits  
-Auftraggeber/Rechteinhaber: [Senckenberg Gesellschaft für Naturforschung] (https://senckenberg.de/)  
+Auftraggeber/Rechteinhaber: [Senckenberg Gesellschaft für Naturforschung](https://senckenberg.de/)  
 Entwicklung/Urheber: [Kunert Business Software GmbH] (https://www.kbs-leipzig.de/kbsweb/)
 
 ## Lizenz  
