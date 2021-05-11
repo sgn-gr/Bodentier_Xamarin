@@ -35,7 +35,7 @@ Auftraggeber/Rechteinhaber: [Senckenberg Gesellschaft für Naturforschung](https
 Entwicklung/Urheber: [Kunert Business Software GmbH] (https://www.kbs-leipzig.de/kbsweb/)
 
 ## Lizenz  
-BODENTIER hoch 4 Copyright © 2021 Senckenberg Gesellschaft für Naturforschung; entwickelt von Kunert Business Software GmbH, im Rahmen des Verbundprojekts museum4punkt0.
+Kbs.Xamarin.TaxonFinder Copyright © 2021 Senckenberg Gesellschaft für Naturforschung; entwickelt von Kunert Business Software GmbH, im Rahmen des Verbundprojekts museum4punkt0.
 
 Dieses Programm ist freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder in Version 3 der Lizenz oder (nach Ihrer Wahl) in einer späteren Version.
 
